@@ -4,7 +4,9 @@ import ButtonSimple from './ButtonSimple';
 
 function TrackerCompleted({ trackers }) {
 
-  const trackersFiltered = trackers.filter(item => item.isCompleted)
+  const trackersFiltered = React.useMemo(() => {
+    return trackers.filter(item => item.isCompleted)
+  }, [trackers]);
 
   return (
     <>
