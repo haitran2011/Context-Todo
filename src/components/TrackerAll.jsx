@@ -1,8 +1,13 @@
 import React from 'react'
 import CheckBox from './CheckBox';
 import ButtonSimple from './ButtonSimple';
+import { useAppContext } from '../contexts/AppContext';
+import { tabs } from '../configs/tab';
 
-function TrackerAll({ trackers }) {
+function TrackerAll() {
+  const { activeTab, trackers } = useAppContext();
+
+  if(activeTab !== tabs.all) return null;
 
   return (
     <>
@@ -14,7 +19,7 @@ function TrackerAll({ trackers }) {
         {trackers.map(tracker => {
           return (
             <div key={tracker.id} className='mb-2'>
-              <CheckBox id={tracker.id} label={tracker.label} />
+              <CheckBox tracker={tracker} />
             </div>
           )
         })}

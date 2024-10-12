@@ -1,12 +1,18 @@
 import React from 'react';
 import CheckBox from './CheckBox';
 import ButtonSimple from './ButtonSimple';
+import { useAppContext } from '../contexts/AppContext';
+import { tabs } from '../configs/tab';
 
-function TrackerCompleted({ trackers }) {
+function TrackerCompleted() {
+  const { activeTab, trackers } = useAppContext();
 
   const trackersFiltered = React.useMemo(() => {
-    return trackers.filter(item => item.isCompleted)
+    return trackers.filter(item => item.completed)
   }, [trackers]);
+
+
+  if(activeTab !== tabs.completed) return null;
 
   return (
     <>
@@ -18,7 +24,7 @@ function TrackerCompleted({ trackers }) {
         {trackersFiltered.map(tracker => {
           return (
             <div key={tracker.id} className='mb-2'>
-              <CheckBox id={tracker.id} label={tracker.label} />
+              <CheckBox tracker={tracker} />
             </div>
           )
         })}
